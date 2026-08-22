@@ -1,6 +1,6 @@
 package com.rayan.agendadortarefas.infrastructure.entity;
 
-import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificaoEnum;
+import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -24,5 +24,5 @@ public class TarefasEntity {
     private LocalDateTime dataEvento;
     private String emailUsuario;
     private LocalDateTime dataAlteracao;
-    private StatusNotificaoEnum statusNotificaoEnum;
+    private StatusNotificacaoEnum statusNotificacaoEnum;
 }

@@ -2,9 +2,8 @@ package com.rayan.agendadortarefas.controller;
 
 import com.rayan.agendadortarefas.business.TarefasService;
 import com.rayan.agendadortarefas.business.dto.TarefasDTO;
-import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificaoEnum;
+import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +42,9 @@ public class TarefasController {
     }
 
     @PatchMapping
-    public ResponseEntity<TarefasDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificaoEnum statusNotificaoEnum,
+    public ResponseEntity<TarefasDTO> alterarStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum statusNotificacaoEnum,
                                                                @RequestParam("id") String id) {
-        return ResponseEntity.ok(tarefasService.alteraStatus(statusNotificaoEnum, id));
+        return ResponseEntity.ok(tarefasService.alteraStatus(statusNotificacaoEnum, id));
     }
 
     @PutMapping

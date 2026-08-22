@@ -1,7 +1,7 @@
 package com.rayan.agendadortarefas.business.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificaoEnum;
+import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,5 +22,5 @@ public class TarefasDTO {
     private LocalDateTime dataEvento;
     private String emailUsuario;
     private LocalDateTime dataAlteracao;
-    private StatusNotificaoEnum statusNotificaoEnum;
+    private StatusNotificacaoEnum statusNotificacaoEnum;
 }
