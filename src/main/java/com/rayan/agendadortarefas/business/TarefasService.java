@@ -4,7 +4,7 @@ import com.rayan.agendadortarefas.business.dto.TarefasDTO;
 import com.rayan.agendadortarefas.business.mapper.TarefaUpdateConverter;
 import com.rayan.agendadortarefas.business.mapper.TarefasConverter;
 import com.rayan.agendadortarefas.infrastructure.entity.TarefasEntity;
-import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificaoEnum;
+import com.rayan.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import com.rayan.agendadortarefas.infrastructure.exceptions.ResourceNotFoundException;
 import com.rayan.agendadortarefas.infrastructure.repository.TarefasRepository;
 import com.rayan.agendadortarefas.infrastructure.security.JwtUtil;
@@ -31,17 +31,37 @@ public class TarefasService {
         String email = jwtUtil.extrairEmailDoToken(token.substring(7));
 
         dto.setDataCriacao(LocalDateTime.now());
-        dto.setStatusNotificaoEnum(StatusNotificaoEnum.PENDENTE);
+        dto.setStatusNotificacaoEnum(StatusNotificacaoEnum.PENDENTE);
         dto.setEmailUsuario(email);
 
+        // 1 - Verifica se o status foi colocado no DTO
+        System.out.println("1 - STATUS DTO: " + dto.getStatusNotificacaoEnum());
+
+        // Converte DTO para Entity
         TarefasEntity entity = tarefaConverter.paraTarefaEntity(dto);
-        return tarefaConverter.paraTarefaDTO(tarefasRepository.save(entity));
+
+        // 2 - Verifica se o Mapper passou o status para a Entity
+        System.out.println("2 - STATUS ENTITY: " + entity.getStatusNotificacaoEnum());
+
+        // Salva no MongoDB
+        TarefasEntity entitySalva = tarefasRepository.save(entity);
+
+        // 3 - Verifica como voltou do MongoDB
+        System.out.println("3 - STATUS SALVO: " + entitySalva.getStatusNotificacaoEnum());
+
+        // Converte Entity para DTO
+        TarefasDTO resposta = tarefaConverter.paraTarefaDTO(entitySalva);
+
+        // 4 - Verifica a resposta final do agendador
+        System.out.println("4 - STATUS RESPOSTA: " + resposta.getStatusNotificacaoEnum());
+
+        return resposta;
     }
 
 
     public List<TarefasDTO> buscarTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
         return tarefaConverter.paraListaTarefasDTO(
-                tarefasRepository.findByDataEventoBetween(dataInicial, dataFinal)
+                tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE)
         );
     }
 
@@ -60,10 +80,10 @@ public class TarefasService {
         }
     }
 
-    public TarefasDTO alteraStatus(StatusNotificaoEnum status, String id) {
+    public TarefasDTO alteraStatus(StatusNotificacaoEnum status, String id) {
         try {
             TarefasEntity entity = tarefasRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tarefa nao encontrada!!"));
-            entity.setStatusNotificaoEnum(status);
+            entity.setStatusNotificacaoEnum(status);
             return tarefaConverter.paraTarefaDTO(tarefasRepository.save(entity));
         } catch (ResourceNotFoundException e){
             throw new ResourceNotFoundException("Error ao alterar statu da tarefa!!" + e.getCause());
