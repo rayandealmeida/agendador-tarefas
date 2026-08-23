@@ -1,6 +1,8 @@
-package com.rayan.bffagendadortarefas.infrastructure.exceptions;
+package com.rayan.agendadortarefas.infrastructure.exceptions;
 
-public class UnauthorizedException extends RuntimeException {
+import javax.naming.AuthenticationException;
+
+public class UnauthorizedException extends AuthenticationException {
 
     public UnauthorizedException(String mensagem){
         super(mensagem);
