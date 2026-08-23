@@ -34,26 +34,12 @@ public class TarefasService {
         dto.setStatusNotificacaoEnum(StatusNotificacaoEnum.PENDENTE);
         dto.setEmailUsuario(email);
 
-        // 1 - Verifica se o status foi colocado no DTO
-        System.out.println("1 - STATUS DTO: " + dto.getStatusNotificacaoEnum());
-
         // Converte DTO para Entity
         TarefasEntity entity = tarefaConverter.paraTarefaEntity(dto);
-
-        // 2 - Verifica se o Mapper passou o status para a Entity
-        System.out.println("2 - STATUS ENTITY: " + entity.getStatusNotificacaoEnum());
-
         // Salva no MongoDB
         TarefasEntity entitySalva = tarefasRepository.save(entity);
-
-        // 3 - Verifica como voltou do MongoDB
-        System.out.println("3 - STATUS SALVO: " + entitySalva.getStatusNotificacaoEnum());
-
         // Converte Entity para DTO
         TarefasDTO resposta = tarefaConverter.paraTarefaDTO(entitySalva);
-
-        // 4 - Verifica a resposta final do agendador
-        System.out.println("4 - STATUS RESPOSTA: " + resposta.getStatusNotificacaoEnum());
 
         return resposta;
     }
