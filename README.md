@@ -60,3 +60,9 @@ O Agendador de Tarefas faz parte de um projeto Back-end maior desenvolvido com *
 * BFF
 
 Cada serviço possui sua própria responsabilidade e trabalha em conjunto com os demais para formar a aplicação completa.
+
+## Projeto completo
+
+A documentação geral e a arquitetura do sistema estão disponíveis no repositório:
+
+[Sistema Agendador de Tarefas](https://github.com/rayandealmeida/sistema-agendador-tarefas)
