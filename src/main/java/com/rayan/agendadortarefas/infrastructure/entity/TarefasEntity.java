@@ -20,7 +20,7 @@ public class TarefasEntity {
 
     private String nomeDaTarefa;
     private String descricao;
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataCriacao;
     private LocalDateTime dataEvento;
     private String emailUsuario;
     private LocalDateTime dataAlteracao;
